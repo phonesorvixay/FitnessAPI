@@ -14,6 +14,15 @@ class ServiceController
             $nowDate = date("Y-m-d H:i:s ");
 
             $db = new DatabaseController();
+
+            $sql1 = "select * from service where memberid='$get->memberid' and status=1";
+            $data1 = $db->query($sql1);
+
+            if ($data1 > 0) {
+                PrintJSON("", "This member is not check out ", 0);
+                die();
+            }
+
             $sql = "insert into service (memberid,status,checkin) values ('$get->memberid',1,'$nowDate')";
             $data = $db->query($sql);
             if ($data) {
@@ -31,9 +40,17 @@ class ServiceController
 
             date_default_timezone_set("Asia/Vientiane");
             $nowDate = date("Y-m-d H:i:s ");
-
             $db = new DatabaseController();
-            $sql = "update service set status=0 ,checkout ='$nowDate' where serviceid='$get->serviceid'";
+
+            $sql1 = "select * from service where memberid='$get->memberid' and status=1 ";
+            $data1 = $db->query($sql1);
+
+            if ($data1 == 0) {
+                PrintJSON("", "This member is not check in ", 0);
+                die();
+            }
+
+            $sql = "update service set status= 0 ,checkout ='$nowDate' where memberid='$get->memberid' and status =1";
             $data = $db->query($sql);
             if ($data) {
                 PrintJSON("", "Checkout OK!", 1);

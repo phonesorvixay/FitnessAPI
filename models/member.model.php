@@ -51,9 +51,9 @@ class MemberModel
             case 'phonenumber':
                 $this->validatePhonenumber();
                 break;
-            case 'image':
-                $this->validateImage();
-                break;
+                // case 'image':
+                //     $this->validateImage();
+                //     break;
             case 'packageid':
                 $this->validatePackageId();
                 break;

@@ -17,7 +17,7 @@ try {
         $model->validateMemberId();
         $control->checkIn($model);
     } else if ($m == "checkout") {
-        $model->checkId();
+        $model->validateMemberId();
         $control->checkOut($model);
     } else if ($m == "deleteservice") {
         $model->checkId();

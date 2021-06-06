@@ -38,16 +38,27 @@ class MemberController
     {
         try {
 
-            $type = explode('/', explode(';', $get->image)[0])[1];
-            $p = preg_replace('#^data:image/\w+;base64,#i', '', $get->image);
-            $name_image = "member-$get->membername-$get->phonenumber.$type";
-            $name = MY_PATH . $name_image;
-            $image = base64_to_jpeg($p, $name);
+            if (isset($get->image) && !empty($get->image)) {
+                $type = explode('/', explode(';', $get->image)[0])[1];
+                $p = preg_replace('#^data:image/\w+;base64,#i', '', $get->image);
+                $name_image = "member-$get->membername-$get->phonenumber.$type";
+                $name = MY_PATH . $name_image;
+                $image = base64_to_jpeg($p, $name);
+            } else {
+                $name_image = "";
+            }
+
 
 
             $db = new DatabaseController();
-            $sql = "update member set membername='$get->membername',phonenumber='$get->phonenumber', image='$name_image',
-                    packageid='$get->packageid', endpackage='$get->endpackage' where memberid='$get->memberid' ";
+            $sql = "update member set membername='$get->membername',phonenumber='$get->phonenumber',";
+
+            if (!empty($name_image)) {
+                $sql .= "image='$name_image',";
+            }
+
+            $sql .= " packageid='$get->packageid', endpackage='$get->endpackage' where memberid='$get->memberid' ";
+
             $data = $db->query($sql);
             if ($data) {
                 PrintJSON("", "update member OK!", 1);
