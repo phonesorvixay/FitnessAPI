@@ -81,4 +81,4 @@ function base64_to_jpeg($base64_string, $output_file)
     fclose($ifp);
     return ($output_file);
 }
-define("MY_PATH", __DIR__ . "/../image/");
+define("MY_PATH", "var/www/html/FitnessAPI/image");
