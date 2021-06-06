@@ -35,7 +35,7 @@ class ReportTicketController
             $sql1 = "select m.*,p.packagename,u.name as name_of_user from member as m
                      INNER JOIN package as p ON m.packageid = p.packageid 
                      INNER JOIN users as u ON m.userid = u.userid
-                     where startpackage between '$get->first_date' and '$get->last_date'";
+                     where date(startpackage) between '$get->first_date' and '$get->last_date'";
             $data1 = $db->query($sql1);
             $json = json_encode($data1);
             if ($data1 > 0) {
@@ -54,7 +54,7 @@ class ReportTicketController
             $sql1 = "select m.*,p.packagename,u.name as name_of_user from member as m
                      INNER JOIN package as p ON m.packageid = p.packageid 
                      INNER JOIN users as u ON m.userid = u.userid
-                     where endpackage between '$get->first_date' and '$get->last_date'";
+                     where date(endpackage) between '$get->first_date' and '$get->last_date'";
             $data1 = $db->query($sql1);
             $json = json_encode($data1);
             if ($data1 > 0) {
