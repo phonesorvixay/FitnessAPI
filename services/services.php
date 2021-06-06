@@ -17,7 +17,6 @@ function PrintJSON($data, $message, $status)
         } else {
             printf($f, json_encode([$data]), $message, $status);
         }
-
     } else {
         printf($f, "[]", $message, $status);
     }
@@ -39,7 +38,6 @@ function Initialization()
             echo json_encode(array('status' => 0, 'message' => 'you have no Authorize'));
             die();
         }
-
     } else {
 
         echo json_encode(array('status' => 0, 'message' => 'No Authorize'));
@@ -83,4 +81,4 @@ function base64_to_jpeg($base64_string, $output_file)
     fclose($ifp);
     return ($output_file);
 }
-define("MY_PATH", "../image/");
+define("MY_PATH", __DIR__ . "../image/");
